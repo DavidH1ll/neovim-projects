@@ -1,77 +1,106 @@
-# Password Generator
+# MSP Password Generator
 
-A secure command-line password generator written in Python.
+A web-based password generator built for Managed Service Providers (MSPs). Generate secure, company-specific passwords with custom schemes — no passwords are ever saved.
+
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![Flask](https://img.shields.io/badge/Flask-2.3+-green)
 
 ## Features
 
-- Uses Python's `secrets` module for **cryptographically secure** randomness
-- Customizable password length
-- Toggle character types (uppercase, lowercase, digits, symbols)
-- Generates multiple passwords at once
-- Built-in password strength checker
+- **Company-Specific Schemes** — Each client can have their own password rules
+- **Secure Generation** — Uses Python's `secrets` module for cryptographically strong passwords
+- **No Database** — Company schemes stored in a simple JSON file
+- **Passwords Never Saved** — Generated on-the-fly and displayed only to you
+- **Dark Mode UI** — Professional MSP-themed interface
+- **Add / Remove Companies** — Manage client schemes on the fly
+- **Copy to Clipboard** — One-click password copying
+- **Strength Indicator** — Visual feedback on password strength
 
-## Usage
+## Password Scheme Options
 
-### Basic usage
+Per company, you can configure:
 
-```bash
-python password_generator.py
-```
+| Option | Description |
+|--------|-------------|
+| Min/Max Length | Password length range |
+| Uppercase (A-Z) | Require uppercase letters |
+| Lowercase (a-z) | Require lowercase letters |
+| Digits (0-9) | Require numbers |
+| Symbols (!@#) | Require special characters |
+| No Ambiguous | Exclude `0`, `O`, `1`, `l`, `I` |
+| Custom Prefix | e.g., `ACME-` |
+| Custom Suffix | e.g., `-2024` |
 
-### Generate a longer password
+## Quick Start
 
-```bash
-python password_generator.py -l 20
-```
-
-### Generate multiple passwords
-
-```bash
-python password_generator.py -c 5
-```
-
-### Exclude symbols
-
-```bash
-python password_generator.py --no-symbols
-```
-
-### Full customization
+### 1. Install Dependencies
 
 ```bash
-python password_generator.py -l 24 -c 3 --no-symbols --no-digits
+cd "password generator"
+pip install -r requirements.txt
 ```
 
-## Options
+### 2. Run the App
 
-| Flag | Description |
-|------|-------------|
-| `-l`, `--length` | Password length (default: 16) |
-| `-c`, `--count` | Number of passwords (default: 1) |
-| `--no-uppercase` | Exclude uppercase letters |
-| `--no-lowercase` | Exclude lowercase letters |
-| `--no-digits` | Exclude numbers |
-| `--no-symbols` | Exclude special characters |
-
-## Example Output
-
-```
-========================================
-       Generated Passwords
-========================================
-
-  [1] k9#mP2$vLqRwXz!N
-      Strength: Strong
-
-========================================
-Done! Keep your passwords safe.
-========================================
+```bash
+python app.py
 ```
 
-## Why `secrets` instead of `random`?
+### 3. Open in Browser
 
-The `random` module is **not** suitable for security purposes. The `secrets` module is designed for generating cryptographically strong random numbers, making it ideal for passwords, tokens, and secrets.
+Navigate to: **http://localhost:5000**
+
+## Default Companies
+
+The app ships with 3 example companies to demonstrate the scheme system:
+
+- **Acme Corp** — Standard 12-16 char complex password
+- **Globex Industries** — 14-20 chars, no ambiguous characters, `GLB-` prefix
+- **Initech** — 10-12 chars, no symbols, `!IT` suffix
+
+## API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/companies` | List all companies |
+| POST | `/api/companies` | Add a new company |
+| DELETE | `/api/companies/<id>` | Remove a company |
+| POST | `/api/generate` | Generate a password |
+
+## Project Structure
+
+```
+password generator/
+├── app.py                  # Flask backend
+├── companies.json          # Company schemes storage
+├── requirements.txt        # Python dependencies
+├── password_generator.py   # Original CLI version
+├── templates/
+│   └── index.html          # Web interface
+├── static/
+│   ├── css/
+│   │   └── style.css       # Dark theme styles
+│   └── js/
+│       └── app.js          # Frontend logic
+└── README.md
+```
+
+## Why This Exists
+
+As an MSP, you manage passwords for dozens of clients. Each client has different compliance requirements, legacy systems, or security policies. This tool lets you:
+
+- Standardize password generation per client
+- Ensure compliance with client-specific rules
+- Never worry about passwords being leaked from a database
+- Generate passwords quickly during onboarding or resets
+
+## Security Notes
+
+- Passwords are generated using `secrets.SystemRandom()` (CSPRNG)
+- No password is ever written to disk or logged
+- Company schemes are the only persistent data (JSON file)
+- For production, run behind a reverse proxy (nginx/traefik) with HTTPS
 
 ## About
 
-This is the second project in the Neovim learning journey.
+This project started as a simple CLI password generator and was upgraded to a web app for MSP use. It's part of the [Neovim Projects](https://github.com/DavidH1ll/neovim-projects) learning journey.

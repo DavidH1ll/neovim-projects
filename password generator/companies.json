@@ -1,0 +1,49 @@
+{
+  "companies": [
+    {
+      "id": "acme-corp",
+      "name": "Acme Corp",
+      "scheme": {
+        "min_length": 12,
+        "max_length": 16,
+        "require_uppercase": true,
+        "require_lowercase": true,
+        "require_digits": true,
+        "require_symbols": true,
+        "exclude_ambiguous": false,
+        "custom_prefix": "",
+        "custom_suffix": ""
+      }
+    },
+    {
+      "id": "globex",
+      "name": "Globex Industries",
+      "scheme": {
+        "min_length": 14,
+        "max_length": 20,
+        "require_uppercase": true,
+        "require_lowercase": true,
+        "require_digits": true,
+        "require_symbols": true,
+        "exclude_ambiguous": true,
+        "custom_prefix": "GLB-",
+        "custom_suffix": ""
+      }
+    },
+    {
+      "id": "initech",
+      "name": "Initech",
+      "scheme": {
+        "min_length": 10,
+        "max_length": 12,
+        "require_uppercase": true,
+        "require_lowercase": true,
+        "require_digits": true,
+        "require_symbols": false,
+        "exclude_ambiguous": false,
+        "custom_prefix": "",
+        "custom_suffix": "!IT"
+      }
+    }
+  ]
+}
