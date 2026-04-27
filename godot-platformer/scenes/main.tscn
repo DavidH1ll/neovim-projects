@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c1player01" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://c1bg000001" path="res://scenes/background.tscn" id="2_bg"]
-[ext_resource type="PackedScene" uid="c1tileset01" path="res://scenes/level.tscn" id="3_level"]
+[ext_resource type="PackedScene" path="res://scenes/level.tscn" id="3_level"]
 [ext_resource type="PackedScene" uid="uid://c1ui000001" path="res://scenes/ui.tscn" id="4_ui"]
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="8_gm"]
 
@@ -13,15 +13,15 @@
 [node name="Level" parent="." instance=ExtResource("3_level")]
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(100, 500)
+position = Vector2(100, 540)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, -50)
+position = Vector2(0, -200)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-limit_bottom = 700
+limit_bottom = 800
 limit_left = 0
-limit_right = 2000
+limit_right = 2500
 limit_smoothed = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true

@@ -4,8 +4,6 @@ extends Node2D
 ## Places floor, platforms, coins, spikes, and flag based on player jump metrics.
 
 const TILE_SIZE := 32
-const GROUND_Y_TILES := 18
-const LEVEL_WIDTH_TILES := 64
 
 const TILE_SOURCE_GROUND := 0
 const TILE_SOURCE_MID := 1
@@ -15,7 +13,9 @@ const TILE_SOURCE_PLATFORM := 2
 @export var gravity: float = 980.0
 
 @onready var tilemap: TileMap = $TileMap
-@onready var ground_y_px: float = GROUND_Y_TILES * TILE_SIZE
+
+var ground_y_px: float
+var level_width_tiles: int
 
 var coin_scene: PackedScene = preload("res://scenes/coin.tscn")
 var spike_scene: PackedScene = preload("res://scenes/spike.tscn")
@@ -23,10 +23,58 @@ var flag_scene: PackedScene = preload("res://scenes/flag.tscn")
 
 
 func _ready() -> void:
+	compute_ground_bounds()
+	add_fallback_floor()
+	position_player_on_ground()
 	generate_platforms()
 	place_spikes()
 	place_coins()
 	place_flag()
+
+
+func add_fallback_floor() -> void:
+	"""Add a StaticBody2D floor in case TileMap collision shapes fail to register."""
+	var body := StaticBody2D.new()
+	var shape := CollisionShape2D.new()
+	var rect := RectangleShape2D.new()
+	rect.size = Vector2(level_width_tiles * TILE_SIZE, TILE_SIZE)
+	shape.shape = rect
+	body.add_child(shape)
+	# Position so the top edge sits exactly on ground_y_px
+	body.position = Vector2(level_width_tiles * TILE_SIZE / 2.0, ground_y_px + TILE_SIZE / 2.0)
+	body.collision_layer = 1
+	body.collision_mask = 0
+	add_child(body)
+
+
+func position_player_on_ground() -> void:
+	"""Snap the player to the ground surface so they don't fall through empty space."""
+	var player := get_tree().get_first_node_in_group("player") as CharacterBody2D
+	if player:
+		# Player collision box bottom is at position.y + 16 (half of 30px sprite)
+		player.global_position = Vector2(player.global_position.x, ground_y_px - 16)
+	else:
+		push_warning("LevelGenerator: No player found in group 'player'")
+
+
+func compute_ground_bounds() -> void:
+	"""Derive ground surface Y and level width from the existing TileMap ground tiles."""
+	var used_cells := tilemap.get_used_cells(0)
+	var min_ground_y := 999999
+	var max_x := -1
+	for cell in used_cells:
+		var source_id := tilemap.get_cell_source_id(0, cell)
+		if source_id == TILE_SOURCE_GROUND:
+			if cell.y < min_ground_y:
+				min_ground_y = cell.y
+			if cell.x > max_x:
+				max_x = cell.x
+		elif source_id == TILE_SOURCE_MID:
+			if cell.x > max_x:
+				max_x = cell.x
+	ground_y_px = min_ground_y * TILE_SIZE
+	level_width_tiles = max_x + 1
+	print("DEBUG LevelGenerator: ground_y_px=", ground_y_px, " level_width_tiles=", level_width_tiles, " min_ground_y=", min_ground_y)
 
 
 func get_max_jump_height() -> float:
@@ -52,7 +100,7 @@ func generate_platforms() -> void:
 
 
 func place_spikes() -> void:
-	"""Snap spikes to the ground surface so their sprite base aligns with y=576."""
+	"""Snap spikes to the ground surface so their sprite base aligns with ground_y_px."""
 	var spike_tile_xs := [5, 12, 19, 28, 36, 46, 55, 61]
 	for tx in spike_tile_xs:
 		var spike := spike_scene.instantiate() as Node2D
@@ -67,7 +115,7 @@ func place_coins() -> void:
 	var max_height := get_max_jump_height()
 	var num_coins := 16
 	var start_tile_x := 6
-	var end_tile_x := LEVEL_WIDTH_TILES - 4
+	var end_tile_x := level_width_tiles - 4
 
 	for i in range(num_coins):
 		var t := float(i) / float(num_coins - 1)
@@ -102,6 +150,6 @@ func place_flag() -> void:
 	"""Place finish flag at the far right, snapped to ground surface."""
 	var flag := flag_scene.instantiate() as Node2D
 	# Sprite is 32x32 centered; bottom edge = y + 16
-	flag.position = Vector2((LEVEL_WIDTH_TILES - 3) * TILE_SIZE, ground_y_px - 16.0)
+	flag.position = Vector2((level_width_tiles - 3) * TILE_SIZE, ground_y_px - 16.0)
 	flag.z_index = 1
 	add_child(flag)

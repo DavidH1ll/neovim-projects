@@ -16,6 +16,9 @@ var is_dead: bool = false
 var facing_right: bool = true
 var invincible: bool = false
 
+const TEX_IDLE := preload("res://assets/player/player_idle.png")
+const TEX_JUMP := preload("res://assets/player/player_jump.png")
+
 signal health_changed(new_health: int)
 signal died
 
@@ -24,6 +27,11 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_dead:
+		return
+
+	# Safety kill plane (fall through ground / out of level)
+	if global_position.y > 800:
+		die()
 		return
 
 	# Apply gravity
@@ -48,14 +56,14 @@ func _physics_process(delta: float) -> void:
 			facing_right = false
 			sprite.flip_h = true
 		# Use idle sprite when running (could add run animation)
-		sprite.texture = preload("res://assets/player/player_idle.png")
+		sprite.texture = TEX_IDLE
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		sprite.texture = preload("res://assets/player/player_idle.png")
+		sprite.texture = TEX_IDLE
 
 	# Use jump sprite when in air
 	if not is_on_floor():
-		sprite.texture = preload("res://assets/player/player_jump.png")
+		sprite.texture = TEX_JUMP
 
 	move_and_slide()
 
@@ -86,9 +94,9 @@ func take_damage(amount: int = 1) -> void:
 func die() -> void:
 	is_dead = true
 	died.emit()
-	# Death animation: fall off screen
-	velocity = Vector2(0, -300)
+	# Death animation: tween position upward then fade out
 	var tween := create_tween()
+	tween.tween_property(self, "position:y", global_position.y - 80, 0.3)
 	tween.tween_property(self, "rotation", PI, 0.5)
 	tween.tween_property(self, "modulate:a", 0.0, 0.5)
 

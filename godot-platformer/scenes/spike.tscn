@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1spike001"]
 
 [ext_resource type="Script" path="res://scripts/spike.gd" id="1_spike"]
-[ext_resource type="Texture2D" uid="uid://uidspikepng" path="res://assets/hazards/spike.png" id="2_spike_tex"]
+[ext_resource type="Texture2D" path="res://assets/hazards/spike.png" id="2_spike_tex"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_spike"]
 points = PackedVector2Array(-14, 14, 0, -14, 14, 14)

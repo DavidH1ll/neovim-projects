@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://c1bg000001"]
 
-[ext_resource type="Texture2D" uid="uid://uidskypng" path="res://assets/bg/sky.png" id="1_sky"]
-[ext_resource type="Texture2D" uid="uid://uidmtnpng" path="res://assets/bg/mountains.png" id="2_mountains"]
-[ext_resource type="Texture2D" uid="uid://uidcloudspng" path="res://assets/bg/clouds.png" id="3_clouds"]
+[ext_resource type="Texture2D" path="res://assets/bg/sky.png" id="1_sky"]
+[ext_resource type="Texture2D" path="res://assets/bg/mountains.png" id="2_mountains"]
+[ext_resource type="Texture2D" path="res://assets/bg/clouds.png" id="3_clouds"]
 
 [node name="Background" type="ParallaxBackground"]
 
