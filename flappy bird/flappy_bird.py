@@ -8,6 +8,7 @@ Built while learning Neovim.
 Assets: https://github.com/samuelcust/flappy-bird-assets
 """
 
+import math
 import os
 import random
 import sys
@@ -390,7 +391,7 @@ class Game:
                 self.bird.animation_timer = 0
                 self.bird.frame_index = (self.bird.frame_index + 1) % len(self.bird.frames)
             # Gentle floating motion
-            self.bird.y = SCREEN_HEIGHT // 2 + int(10 * pygame.math.sin(pygame.time.get_ticks() / 300))
+            self.bird.y = SCREEN_HEIGHT // 2 + int(10 * math.sin(pygame.time.get_ticks() / 300))
 
         elif self.state == "PLAYING":
             self.bird.update()
