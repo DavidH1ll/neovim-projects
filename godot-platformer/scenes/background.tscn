@@ -10,6 +10,7 @@
 motion_scale = Vector2(0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="SkyLayer"]
+z_index = -20
 texture = ExtResource("1_sky")
 region_enabled = true
 region_rect = Rect2(0, 0, 1280, 720)
@@ -20,6 +21,7 @@ motion_scale = Vector2(0.2, 0)
 motion_mirroring = Vector2(800, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="MountainsLayer"]
+z_index = -10
 position = Vector2(400, 500)
 texture = ExtResource("2_mountains")
 
@@ -28,5 +30,6 @@ motion_scale = Vector2(0.4, 0)
 motion_mirroring = Vector2(800, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="CloudsLayer"]
+z_index = -5
 position = Vector2(400, 150)
 texture = ExtResource("3_clouds")
