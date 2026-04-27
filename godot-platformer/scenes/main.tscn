@@ -83,28 +83,28 @@ position = Vector2(1600, 480)
 [node name="Hazards" type="Node2D" parent="."]
 
 [node name="Spike1" parent="Hazards" instance=ExtResource("6_spike")]
-position = Vector2(350, 608)
+position = Vector2(350, 562)
 
 [node name="Spike2" parent="Hazards" instance=ExtResource("6_spike")]
-position = Vector2(550, 608)
+position = Vector2(550, 562)
 
 [node name="Spike3" parent="Hazards" instance=ExtResource("6_spike")]
-position = Vector2(750, 608)
+position = Vector2(750, 562)
 
 [node name="Spike4" parent="Hazards" instance=ExtResource("6_spike")]
-position = Vector2(950, 608)
+position = Vector2(950, 562)
 
 [node name="Spike5" parent="Hazards" instance=ExtResource("6_spike")]
-position = Vector2(1150, 608)
+position = Vector2(1150, 562)
 
 [node name="Spike6" parent="Hazards" instance=ExtResource("6_spike")]
-position = Vector2(1350, 608)
+position = Vector2(1350, 562)
 
 [node name="Spike7" parent="Hazards" instance=ExtResource("6_spike")]
-position = Vector2(1550, 608)
+position = Vector2(1550, 562)
 
 [node name="Flag" parent="." instance=ExtResource("7_flag")]
-position = Vector2(1800, 560)
+position = Vector2(1800, 552)
 
 [node name="UI" parent="." instance=ExtResource("4_ui")]
 
