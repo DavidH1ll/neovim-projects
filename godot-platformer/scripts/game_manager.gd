@@ -3,7 +3,7 @@ extends Node
 class_name GameManager
 
 @onready var player: Player = $"../Player"
-@onready var ui: Control = $"../UI"
+@onready var ui: CanvasLayer = $"../UI"
 @onready var spawn_point: Marker2D = $"../SpawnPoint"
 
 var score: int = 0
