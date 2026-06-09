@@ -80,6 +80,47 @@ Then open **http://localhost:5000** in your browser.
 
 ---
 
+### 3. Flappy Bird Clone ([standalone repo](https://github.com/DavidH1ll/flappy-bird))
+
+A feature-rich Flappy Bird clone built with Pygame — now a standalone repository.
+
+- **Features:** Day/night mode, bird colors, 3 difficulty levels, medals, persistent leaderboard
+- **What I learned:** Pygame animation, pixel-perfect collision, game state management
+- **Tech:** Python 3, Pygame
+
+---
+
+### 4. Godot 2D Platformer
+
+A complete 2D platformer built in Godot 4 with pixel art assets created via Python scripting.
+
+- **Features:** CharacterBody2D physics, one-way platforms, TileMap level, spikes, coins, parallax background
+- **What I learned:** GDScript, Godot engine, tilemap design, 2D physics
+- **Tech:** Godot 4.6, GDScript
+
+```bash
+cd godot-platformer
+godot project.godot
+```
+
+---
+
+### 5. Rogue Shooter (Pygame)
+
+A top-down roguelike shooter with procedural generation, multiple weapon types, and boss fights.
+
+- **Features:** Procedural room generation, enemy waves, boss encounters, weapon pickups, audio system
+- **What I learned:** Advanced Pygame patterns, procedural level design, audio management
+- **Tech:** Python 3, Pygame
+
+```bash
+cd rogue-shooter-pygame
+pip install -r requirements.txt
+python3 src/main.py
+```
+
+---
+
 ## Tools & Workflow
 
 This repository is a living document of my Neovim learning journey.
@@ -120,15 +161,25 @@ neovim-projects/
 │   │   └── js/
 │   │       └── app.js     # Frontend logic
 │   └── README.md          # Project docs
+├── godot-platformer/
+│   ├── project.godot      # Godot project file
+│   ├── scenes/            # Game scenes (player, level, UI)
+│   ├── scripts/           # GDScript game logic
+│   ├── assets/            # Pixel art sprites & backgrounds
+│   └── README.md          # Project docs
+├── rogue-shooter-pygame/
+│   ├── src/               # Python source (player, enemy, boss, etc.)
+│   ├── assets/            # Sprites, audio (music + SFX)
+│   └── README.md          # Project docs
+├── rogue-shooter-assets/  # Asset references
+├── opencode images/       # Screenshots
 ├── .gitignore
 └── README.md              # You are here
 ```
 
 ---
 
-## Future Projects
-
-Ideas for upcoming projects:
+## Upcoming Ideas
 
 - [ ] **Todo List CLI** — Persistent tasks with JSON storage
 - [ ] **File Organizer** — Auto-sort Downloads folder by file type
